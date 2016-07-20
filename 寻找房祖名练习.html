@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			#wrap{
+				width: 600px;
+				height: 700px;
+				background: rgb(204,204,204);
+				margin: 30px auto 0;
+				position: relative;
+				border-radius: 2%;
+			}
+			#time{
+				margin-top: 20px;
+				margin-left: 20px;
+				display: inline-block;
+				font-size: 25px;
+			}
+			#score{
+				display: inline-block;
+				margin-top: 20px;
+				margin-left: 200px;
+				font-size: 25px;
+			}
+			#btn{
+				width: 100px;
+				height: 60px;
+				border-radius: 20%;
+				background: red;
+				color: black;
+				font-size: 30px;
+				margin-left: 250px;
+				margin-top: 20px;
+				text-align: center;
+				line-height: 60px;
+				cursor: pointer;
+			}
+			#boxOuter{
+				width: 510px;
+				height: 510px;
+				background: url(img/2.png) no-repeat black;
+				background-size: 100% 100%;
+				margin-left: 50px;
+				margin-top: 20px;
+				border-radius: 2%;
+				/*display: none;*/
+			}
+			#box{
+				width: 500px;
+				/*height: 500px;*/
+				/*border: 1px solid red;*/
+				/*box-sizing: border-box;*/
+				/*margin-left: 50px;*/
+				/*margin-top: 20px;*/
+				/*background: url(img/2.png) no-repeat black;*/
+				/*background-size: 100% 100%;*/
+				/*border-radius: 2%;*/
+				border-radius: 2%;
+				cursor: pointer;
+				overflow: hidden;
+			}
+			#box img{
+				margin-left: 10px;
+				margin-top: 10px;
+				border-radius: 10%;
+				float: left;
+				
+			}
+			#restart{
+				width: 80px;
+				height: 20px;
+				background: black;
+				color: red;
+				text-align: center;
+				line-height: 20px;
+				border-radius: 20%;
+				position: absolute;
+				top: 670px;
+				left: 260px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="time">
+				剩余时间：60:00秒
+			</div>
+			<div id="score">
+				得分：0
+			</div>
+			<div id="btn">
+				开始
+			</div>
+			<div id="boxOuter">
+				<div id="box">
+				
+				</div>
+			</div>
+			<div id="restart">
+				重新开始
+			</div>
+		</div>
+	</body>
+<script type="text/javascript">
+		//获取开始按钮
+		var btnDiv = document.getElementById("btn");
+		//获取计时
+		var timeDiv = document.getElementById("time");
+		//获取计分
+		var scoreDiv = document.getElementById("score");
+		//获取包裹的div
+		var boxOuterDiv = document.getElementById("boxOuter");
+		//获取放图的div
+		var boxDiv = document.getElementById("box");
+		//定义新建图片背景颜色数组
+		var colorArray = ["red","orange","yellow","green","blue","purple","deepskyblue"];
+		//定义计分初始值
+		var totleScore = 0;
+		//动态获取当前页面的url地址
+		var urlHref = location.href;
+		
+		//定义一个变量来规定游戏开始或者结束，为true正常游戏
+		var game = true;
+		
+		//点击开始
+		btnDiv.onclick = function(){
+			//开始倒计时
+			countDownFun();
+			//开始按钮消失
+			btnDiv.style.display = "none";
+			//原来图片消失
+			removeImgFun();
+			//创建新的图片
+			createImgFun();
+			
+		}
+		
+		//倒计时函数
+		function countDownFun(){
+			//定义初试计数，单位是毫秒
+			var sunTime = 60;			
+			//定时器，实现倒计时
+			var timer = setInterval(function(){
+				sunTime -= 0.01;
+				//去两位小数
+			sunTime = sunTime.toFixed(2);
+				//定时器停止，游戏结束
+				if (sunTime <= 0) {
+					clearInterval(timer);
+					//游戏结束
+					alert("骚年，没机会了！");
+					game = false;
+				}
+				timeDiv.innerHTML = "剩余时间：" + sunTime + "秒";
+			},10)
+		}
+		//图片消失函数
+		function removeImgFun(){
+			boxDiv.style.background = "black";
+			boxDiv.innerHTML = "";
+			boxOuterDiv.style.background = "black";
+			
+		}
+		var imgNum = 2;
+		//新增加图片的函数
+		function createImgFun(){
+			//定义新增图片的数量
+			var totleNum = imgNum * imgNum;
+			//计算每张图片的宽度
+			var imgWidth = (boxDiv.clientWidth - imgNum * 10) / imgNum;
+			
+			//随机7个数组中的数字
+			var index = parseInt(Math.random() * 7);
+			//随机选取背景颜色
+			var color = colorArray[index];
+			var High = imgWidth * 10;
+			//创建新图片
+			for (var i = 0;i < totleNum;i++) {
+				var img = document.createElement("img");
+				//图片宽度
+				img.style.width = imgWidth + "px";
+				//图片高度
+				img.style.height = imgWidth + "px";
+				if (High > 400) {
+					High = 400;
+				}
+				//图片路径
+				img.src = "img/1.png";
+				
+				//设置图片背景
+				img.style.background = color;
+				//新建图片入库
+				box.appendChild(img);
+			}
+			//设置真的房祖名的随机数
+			var allChild = boxDiv.children;
+			var index = parseInt(Math.random() * allChild.length);
+			//把真的房祖名插入图片路径
+			allChild[index].src = "img/2.png";
+			
+			//给真正的房祖名绑定点击事件
+			allChild[index].onclick = function(){
+				//可以正常点击，
+				if (game == true) {
+				//移除现有图片
+				removeImgFun();
+				//每排图片数量
+				imgNum++;
+				if (imgNum >= 10) {
+					imgNum = 10;
+				}
+				//清除图片后再添加新图片
+				createImgFun();
+				//计分加10
+				totleScore += 10;
+				scoreDiv.innerHTML = "得分：" + totleScore;
+				}
+				
+			}
+			restart.onclick = function(){
+				location.replace(urlHref);
+//				location.reload();
+			}
+		}
+		
+	</script>
+</html>
