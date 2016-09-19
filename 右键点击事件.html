@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ul li{
+				list-style: none;
+				cursor: pointer;
+			}
+			body{
+				position: relative;
+			}
+			#listFir{
+				width: 120px;
+				height: 140px;
+				background: rgb(200,201,202);
+				border-radius: 10%;
+				position: absolute;
+				padding-left: 20px;
+				text-align: left;
+				display: none;
+			}
+			/*#listFir li:nth-child(1){
+				width: 100%;
+				height: 30px;
+				border-bottom: 1px solid gray;
+			}*/
+			#listSec{
+				width: 80px;
+				height: 110px;
+				background: rgb(200,201,202);
+				position: absolute;
+				left: 130px;
+				top: 50px;
+				border-radius: 10%;
+				text-align: center;
+				display: none;
+			}
+			#listThr{
+				width: 80px;
+				height: 90px;
+				background: rgb(200,201,202);
+				position: absolute;
+				left: 75px;
+				top: 30px;
+				border-radius: 10%;
+				display: none;
+			}
+			li{
+				margin-top: 10px;
+			}
+			#listFir li:nth-of-type(3):hover{
+				background: gray;
+			}
+			#listSec li:nth-of-type(2):hover{
+				background: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="listFir">
+			<li>新建文件夹</li>
+			<li>显示简介</li>
+			<li id="liSec">整理方式
+				<ul id="listSec">
+					<li>名称</li>
+					<li id="liThr">种类
+						<ul id="listThr">
+							<li>种类1</li>
+							<li>种类2</li>
+							<li>种类3</li>
+						</ul>
+					</li>
+					<li>创建日期</li>
+					<li>修改日期</li>
+				</ul>
+			</li>
+			<li>排序方式</li>
+			<li>查看显示选项</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		//获取listFir
+		var listFir = document.getElementById("listFir");
+		//获取二级菜单标题
+		var liSec = document.getElementById("liSec");
+		var listSec = document.getElementById("listSec");
+		//获取三级菜单
+		var liThr = document.getElementById("liThr");
+		var listThr = document.getElementById("listThr");
+		
+		document.oncontextmenu = function(event){
+			var ev = event || window.event;
+			//获取鼠标位置
+			var x = ev.pageX;
+			var y = ev.pageY;
+			listFir.style.left = x + "px";
+			listFir.style.top = y + "px";
+			listFir.style.display = "block";
+			return false;			
+		}
+		liSec.onmousemove = function(event){
+			var ev = event || window.event;
+			listSec.style.display = "block";
+//			listSec.style.background = "gray";
+			
+		}
+		liSec.onmouseout = function(event){
+			var ev = event || window.event;
+			listSec.style.display = "none";
+		}
+		
+		liThr.onmousemove = function(event){
+			var ev = event || window.event;
+			listThr.style.display = "block";
+		}
+		liThr.onmouseout = function(event){
+			var ev = event || window.event;
+			listThr.style.display = "none";
+		}
+
+		document.onclick = function(event){
+				var ev = event || window.event;
+				listFir.style.display = "none";
+		}
+		
+		
+		
+		
+	</script>
+</html>
