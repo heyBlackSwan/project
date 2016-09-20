@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="test">
+	<head>
+		<meta charset="UTF-8">
+		<title>路由操作</title>
+	</head>
+	<body>
+		<div>标题</div>
+		<ng-view></ng-view>
+	</body>
+	<script type="text/javascript" src="../shop/js/angular.min.js"></script>
+	<script type="text/javascript" src="../shop/js/angular-route.min.js"></script>
+	<script type="text/javascript">
+	
+	//test模块下需要使用路由操作，而路由操作并不包含在 angular.min.js 里面，所以需要依赖 Route 模块
+		var app = angular.module("test",["ngRoute"]);//使用指令时，用ng-xx
+		
+		//配置路由
+		app.config(function($routeProvider){
+			$routeProvider.when("/A",{templateUrl:"templateA.html"});
+			$routeProvider.when("/B",{templateUrl:"templateB.html"});
+			$routeProvider.otherwise({templateUrl:"templateC.html"});
+		})
+		
+	</script>
+</html>

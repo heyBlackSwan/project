@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>展示</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        body{
+            background: #EDEBEC;
+        }
+        .wrap{
+            width: 700px;
+            margin:100px auto;
+            text-align: center;
+        }
+        th,td{
+            width: 118px;
+            height: 48px;
+            background: #F5FB2A;
+            font-size: 20px;
+            color: #20A5FD;
+        }
+        th:nth-of-type(5){
+            width: 218px;
+        }
+
+    </style>
+</head>
+<body>
+        <div class="wrap">
+            <table border="1" cellspacing="1">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>书&nbsp&nbsp名</th>
+                    <th>作&nbsp&nbsp者</th>
+                    <th>价&nbsp&nbsp格</th>
+                    <th>简&nbsp&nbsp介</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <a href="http://127.0.0.1/160303/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86/%E5%89%8D%E7%AB%AF/%E9%A1%B5%E9%9D%A2.html">返回</a>
+        </div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    window.onload = function(){
+        $.ajax({
+            url:"http://127.0.0.1/160303/图书管理/后端/show.php",
+            type:"post",
+            success:function(data){
+                var result = $.parseJSON(data);
+                for(var i = 0;i < result.length;i++){
+                    var tr = $("<tr></tr>");
+                    var tdFir = $("<td>" + (i + 1)+ "</td>");
+                    var tdSec = $("<td>" + result[i].name + "</td>");
+                    var tdThr = $("<td>" + result[i].author + "</td>");
+                    var tdFou = $("<td>" + "RMB:" +result[i].price + "</td>");
+                    var tdFiv = $("<td>" + result[i].message + "</td>");
+                    $(tr).append(tdFir);
+                    $(tr).append(tdSec);
+                    $(tr).append(tdThr);
+                    $(tr).append(tdFou);
+                    $(tr).append(tdFiv);
+                    $("tbody").append(tr);
+                }
+
+            }
+        })
+    }
+</script>
+</html>
+<!--window.onload = function(){-->
+<!--$("#btn").on("click",function(){-->
+
+<!--//            请求网络获取后台数据-->
+<!--$.ajax({-->
+<!--url:"http://127.0.0.1/160303/Day05/后端/ajax2.php",-->
+<!--type:"get",-->
+<!--success:function(data){-->
+<!--//                    data是json格式数据-->
+<!--var result = $.parseJSON(data);-->
+<!--//                    console.log(result);-->
+<!--//取出数组中每个元素(js对象)-->
+<!--var divContiner = $("<div></div>");-->
+<!--$("body").append($(divContiner));-->
+<!--for(var i = 0;i < result.length;i++){-->
+<!--var p = $("<p></p>");-->
+<!--var s1 = $("<span>" + result[i].name + "</span>");-->
+<!--var s2 = $("<span>" + result[i].phone + "</span>");-->
+<!--$(p).append(s1);-->
+<!--$(p).append(s2);-->
+<!--$(divContiner).append(p);-->
+
+<!--}-->
+
+<!--//创建一个输入框 创建一个删除按钮-->
+
+
+<!--}-->
+<!--});-->
+<!--})-->
+<!--}-->

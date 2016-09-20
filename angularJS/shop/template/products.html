@@ -1,0 +1,34 @@
+<div class="panel" ng-controller="productCtr">
+      <div class="row">
+          <div class="col-md-3">
+              <button class="btn btn-default btn-block btn-lg" ng-click="findCategoryProducts('全部')" ng-class="classOfCategory(p)">全部</button>
+              <button class="btn btn-default btn-block btn-lg" ng-repeat="p in products|unique:'category'" ng-click="findCategoryProducts(p)" ng-class="classOfCategory(p)">{{p}}</button>
+              <!--<button class="btn btn-default btn-block btn-lg">足球</button>
+              <button class="btn btn-default btn-block btn-lg">乒乓球拍</button>
+              <button class="btn btn-default btn-block btn-lg">网球拍</button>-->
+          </div>
+          <div class="col-md-9">
+              <div class="well" ng-repeat="p in productsOfPage">
+                  <h3>{{p.name}}<span class="pull-right label label-primary">{{p.price|currency:"￥"}}</span></h3>
+                  <a href="###" class="pull-right btn btn-default btn-success" ng-click="addShopToCart(p)">加入购物车</a>
+                  <span class="lead">{{p.description}}</span>
+              </div>
+              <!--<div class="well">
+                  <h3>乔丹篮球<span class="pull-right label label-primary">￥119.00</span></h3>
+                  <a href="###" class="pull-right btn btn-default btn-success">加入购物车</a>
+                  <span class="lead">乔丹篮球水泥地耐磨防滑室内外通用七号篮球特价正品学生比赛用球.竞赛用篮球</span>
+              </div>
+              <div class="well">
+                  <h3>乔丹篮球<span class="pull-right label label-primary">￥119.00</span></h3>
+                  <a href="###" class="pull-right btn btn-default btn-success">加入购物车</a>
+                  <span class="lead">乔丹篮球水泥地耐磨防滑室内外通用七号篮球特价正品学生比赛用球.竞赛用篮球</span>
+              </div>-->
+          </div>
+      </div>
+      <div class="pull-right btn-group">
+          <button class="btn btn-default" ng-repeat="num in pagesArray" ng-click="contentsPerPage(num)" ng-class="classOfPage(num)">{{num}}</button>
+          <!--<button class="btn btn-default">2</button>
+          <button class="btn btn-default">3</button>
+          <button class="btn btn-default">4</button>-->
+      </div>
+  </div>

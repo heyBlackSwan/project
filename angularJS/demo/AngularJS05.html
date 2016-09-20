@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="text">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-controller="ctr">
+		<!--<div>
+			{{aa + 50 - 20}}
+		</div>
+		<div>
+			{{hello()}}	
+		</div>-->
+		
+		
+		<!--第二种方式 ngBind-->
+		<div ng-bind="aa"></div>
+	</body>
+	<script type="text/javascript" src="../shop/js/angular.min.js"></script>
+	<script type="text/javascript">
+		//网络请求
+		var app = angular.module("test",[]);
+		app.controller("ctr",function($scope,$http){
+			//使用$http这个参数，（$http 属于 AngularJS 里面的服务）
+			$http.({
+				method:"get",
+				url:"231321321321"
+			}).then(function(response){
+				
+				//成功
+			},function(error){
+				//失败
+			})
+		
+
+			
+		});
+	</script>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+	.box {
+	  position: relative;
+	  width: 100%;
+	  height: 0;
+	  margin: 50px auto 0;
+	  padding-top: 100%;
+	}
+	.box .turnplate {
+	  position: absolute;
+	  top:0;
+	  left:0;
+	  width:100%;
+	  height: 100%;
+	  background: url("images/turnplate-bg.png") center center no-repeat;
+	  background-size: 100%;
+	}
+	.box .turnplate .prize {
+	  position: absolute;
+	  left:50%;
+	  top:50%;
+	  width: 90%;
+	  height: 90%;
+	  background: url("images/prize.png") center center no-repeat;
+	  background-size: 100%;
+	  -webkit-transform:translate(-50%,-50%);
+	  transform:translate(-50%,-50%);
+	}
+	.box .turnplate .pointer {
+	  position:absolute;
+	  left:50%;
+	  top:50%;
+	  width:40%;
+	  height:0;
+	  padding-top: 65.29%;
+	  background: url("images/turnplate-pointer.png") center center no-repeat;
+	  background-size: 100%;
+	  -webkit-transform:translate(-50%,-50%) rotate(0);
+	  transform:translate(-50%,-50%) rotate(0);
+	  -webkit-transition: -webkit-transform 1.5s ease;
+	  transition: transform 1.5s ease;
+	}
+	.reset {
+	  width: 100px;
+	  height: 30px;
+	  line-height: 30px;
+	  text-align: center;
+	  color: #333;
+	  font-size:16px;
+	  border:1px solid #e5e5e5;
+	  border-radius: 3px;
+	  cursor: pointer;
+	}
+	@media (min-width: 600px) {
+	  .box{
+	    width: 600px;
+	    height: 600px;
+	    padding: 0;
+	  }
+	}
+		</style>
+	</head>
+	<body>
+		 <div class="box">
+        <div class="turnplate">	
+            <div class="prize" id="prize"></div>
+            <div class="pointer" id="pointer">
+            		<div id="cover"></div>
+            </div>
+        </div>
+    </div>
+    <div id="reset" class="reset">清零</div>
+	</body>
+	<script type="text/javascript">
+		//子调用函数
+		(function(){
+			var pointer = document.getElementById("pointer");
+			var reset = document.getElementById("reset");
+//			var count = 0;
+			var curRotate = false;//旋转
+			var isRotate = 0;//旋转度数
+			
+			//获取或设置cookie
+			var cookie = {
+
+				getCookie:function(key){
+					var cookie = " name1 = aa; name2 = bb; name3 = cc; name4 = dd;"
+					var arr = cookie.split(";");//分割成数组
+					
+					for (var i = 0;i < arr.length;i++) {
+						var arr2 = arr[i].split("=");
+						if (key == arr2[0]) { //匹配取值
+							return arr2[1];
+						};
+					}
+				},				
+				
+				setCookie:function(key,val,day){
+					var date = new Date();
+					var nowDate = date.getDate();
+					date.setDate(nowDate + day)
+					document.cookie = key + "=" + val +"; expires=" + day;
+				}
+			};
+			
+//			cookie.getCookie("name1");
+//			cookie.setCookie("a","b",5); 
+			
+			//本地存储
+			var storage = {
+				getItem: function(key){
+					return window.localStorage ? localStorage.getItem(key) : cookie.getCookie(key);
+					
+				},
+				setItem: function(key,val){
+					if (window.localStorage) {
+						localStorage.setItem(key,val);
+					}else{
+						cookie.setCookie(key, val, 30);
+					}
+				}
+			};
+		
+			
+			
+			function getRandom(min,max){
+				return Math.random() * (max - min + 1) + min;
+			}
+			
+			function start(){
+//				console.log(1);
+				//如果正在旋转，返回不执行
+				if (curRotate) {
+					return;
+				};
+				
+				var count = storage.getItem("count");
+				if (count >= 3) {
+					alert("抽奖次数已用完");
+					return;
+				};
+				count++;
+				curRotate = true;
+				storage.setItem("count",count);
+				isRotate += getRandom(5,10) * 360;
+				console.log(getRandom(5,10));
+				rotate(pointer,isRotate);
+				
+				var timer = setTimeout(function(){
+					end();
+					check(isRotate);
+				},2000);
+					
+			};
+			//旋转函数
+			function rotate(obj,deg){
+				obj.style.cssText = "-webkit-transform:translate(-50%,50%)ratate("+ deg +"deg);transform:translate(-50%,-50%) rotate(" + deg +"deg)";
+			};
+			
+			//判断中奖类型
+			function check(deg){
+				var diff = deg % 360;
+				var txt = "";
+				
+		    if (0 < diff && diff <= 18) {
+		      txt = "恭喜您中30M免费流量包";
+		    } else if (18 < diff && diff <= 54) {
+		      txt = "恭喜您中100M免费流量包";
+		    } else if (54 < diff && diff <= 90) {
+		      txt = "恭喜您中2闪币";
+		    } else if (90 < diff && diff <= 126) {
+		      txt = "恭喜您中50M免费流量包";
+		    } else if (126 < diff && diff <= 162) {
+		      txt = "恭喜您中10闪币";
+		    } else if (162 < diff && diff <= 198) {
+		      txt = "谢谢参与";
+		    } else if (198 < diff && diff <= 234) {
+		      txt = "恭喜您中5闪币";
+		    } else if (234 < diff && diff <= 270) {
+		      txt = "恭喜您中10M免费流量包";
+		    } else if (270 < diff && diff <= 306) {
+		      txt = "恭喜您中20M免费流量包";
+		    } else if (306 < diff && diff <= 342) {
+		      txt = "恭喜您中20闪币";
+		    } else if (342 < diff && diff <= 360) {
+		      txt = "恭喜您中30M免费流量包";
+		    }
+		    alert(txt);
+			}
+			
+			function end(){
+				curRotate = false;
+			};
+			
+			var x = 0;
+			var y = 0;
+			var z = 0;
+			var lastX = 0;//上一次摇晃事件中，各个方向的值
+			var lastY = 0;
+			var lastZ = 0;
+			var maxSpeed = 3000;//摇晃激烈程度最大界限
+			var num = 0;//摇晃次数
+			var lastTime = 0;//上一次摇晃的时间
+			
+			//判断是否支持该事件
+			if (window.DeviceMotionEvent) {
+				window.addEventListener("devicemotion",shakeFun,false);
+			} else{
+				alert("设备不支持");
+			}
+			
+			function shakeFun(event){
+				//取重力加速度
+				var ag = event.accelerationIncludingGravity;
+				
+				var curTime = new Date().getTime();//距离时间元年的毫秒数
+				
+				//如果本次摇晃时间与上次摇晃时间差值大于100毫秒才算作下一次摇晃
+				if ((curTime - lastTime) > 100 ) {
+					var diffTime = 	curTime - lastTime;
+					//给上一次时间赋值
+					lastTime = curTime;
+					//摇晃完成后的各个方向的值
+					x = ag.x;
+					y = ag.y;
+					z = ag.z;
+					
+					//计算摇晃的激烈程度
+					var speed = Math.abs((x + y + z -lastX - lastY - lastZ) / diffTime * 10000);
+					
+					//判断当前摇动速度达到最大界限
+					if (speed > maxSpeed) {
+						start();
+					}
+					
+					
+	//				document.body.innerHTML = speed;
+					
+					//保存上一次摇晃的速度
+					lastX = x;
+					lastY = y;
+					lastZ = z;
+			};
+			
+			//点击事件 开始抽奖
+			pointer.onclick = start;//与加上括号的区别，点击时调用
+			
+			//清零
+			reset.onclick = function(){
+				storage.setItem("count",0);
+			}
+			};
+			
+		})();
+	</script>
+</html>

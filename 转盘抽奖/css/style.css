@@ -1,0 +1,7 @@
+﻿/* 大转盘样式 */
+.box { position: relative; width: 100%; height: 0; padding-top: 100%;}
+.box .turnplate { position: absolute; top:0; left:0; width:100%; height: 100%; background: url("../images/turnplate-bg.png") center center no-repeat; background-size: cover;}
+.box .turnplate .prize { position: absolute; width: 90%; height: 90%; background: url("../images/prize.png") center center no-repeat;background-size: cover;left:5%;top:5%;}
+.box .turnplate .pointer { position:absolute; left:29%; top:17%; width:40%; height:0; padding-top: 65.29%; background: url("../images/turnplate-pointer.png") center center no-repeat; background-size: cover; }
+#cover{width: 42%;height: 30%;background: transparent;position: absolute;top: 36%;left: 30%;cursor: pointer;}
+

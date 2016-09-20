@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="test">
+	<head>
+		<meta charset="UTF-8">
+		<title>过滤器</title>
+	</head>
+	<body ng-controller="ctr">
+		<!--<div>{{aa|currency:"￥"}}</div>
+		<div>{{bb|lowercase}}</div>-->
+		
+		<ul>
+			<li ng-repeat="a in person|back:'sex'">{{a}}</li>
+		</ul>
+		
+		
+	</body>
+	<script type="text/javascript" src="../shop/js/angular.min.js"></script>
+	<script type="text/javascript">
+		var app = angular.module("test",["sexFilter"]);
+		app.controller("ctr",function($scope){
+			$scope.person = [
+			{name:"lty",sex:"man"},
+			{name:"xiaohong",sex:"woman"},
+			{name:"xiaojun",sex:"man"},
+			{name:"xiaohua",sex:"woman"},
+			{name:"xiaoh",sex:"man"}]
+		});
+		
+		
+		//自定义过滤器
+		var filters = angular.module("sexFilter",[]);
+		
+		filters.filter("back",function($scope){
+			
+			return function(data,property){
+				var sexs = [];//用来保存男 女的信息
+				if (angular.isArray(data)) {
+					for (var i = 0;i < data.length;i++) {
+							if (sexs.indexOf(data[i][property]) == -1) {
+								sexs.push(data[i][property]);
+							}
+					}
+					return sexs;
+				}else{
+					return [];
+				}
+			}
+			
+		});
+		
+	</script>
+</html>

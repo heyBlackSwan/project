@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dxm">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+</body>
+<script type="text/javascript" src="../shop/js/angular.min.js"></script>
+<script type="text/javascript">
+    /*
+        1.指令(系统内置指令, 自定义指令)
+        2.过滤器(系统过滤器,自定义过滤器)
+        3.依赖注入
+        4.路由操作(非常重要)
+        5.数据绑定
+
+    */
+
+    /*
+     指令:(directive),指令其实就是angularJS定义的一系列操作
+          指令分为系统指令和自定义指令
+          指定特点:
+            使用的都是驼峰法命名(定义的时候都是这样定义的)
+            注意:使用的时候,采用"-"分割单词.比如:ngApp 使用的时候就写ng-app. ngModleOg 使用时写ng-modle-og
+
+          指令1: ng-app 是系统指令里面最重要的一个指令.它定义文件哪个区域可以使用
+           AngularJS.比如写在html标签里面,在html标签里面都可以使用,如果写在body
+           标签里面.就只能在body内部使用.(一般写在html标签里面).
+
+           一般情况下,一个项目只能出现一次ng-app.期间切换页面也不能出现多次.AngularJS定位于做单应用
+           (单应用是指一个项目只有一个index.html.其他html页面只是辅助,节约流量访问速度快).
+
+
+
+
+           指令2: ng-model :用来实现数据绑定,主要用于 input标签.本质就是,定义一个变量来保存input标签的内容,
+           只要标签内容发生改变,这个变量就动态实时改变.
+
+     */
+
+    /*
+     自定义指令
+     前提:ng-app 不能为空
+     获取:获取app模块
+
+
+     全局对象
+        html里面的window
+          AngularJS里面有一个全局对象叫 angular
+
+     全局函数(属性): 全局对象的方法就叫全局函数.比如(window.onload)
+
+
+    */
+
+
+    //angular.module(参数1,参数2)
+    // 需要两个参数:第一个参数(模块的名字) 第二个参数(数组,数组里面装载的是字符串)
+    //功能:
+    //  1:如果不存在参数1说明的模块,则创建一个新的模块
+    //  2:如果存在,则获取这个模块
+    var app = angular.module("dxm",[]);
+	//自定义指令：需要两个参数1.指令的名字，2.指令的内容
+    
+
+
+</script>
+</html>

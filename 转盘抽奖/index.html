@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
+    <title>html5手机移动端转盘抽奖</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+    <!--
+    实现要求：
+    1、有且仅有3次抽奖机会;
+    2、开始抽奖，指针随机转5-10圈（每圈360deg，即转的度数为1800-3600之间任意数）;
+    3、要求把抽奖次数记录下来，把页面关掉重新打开依然有效；
+    -->
+
+    <div class="box">
+        <div class="turnplate">	
+            <div class="prize"></div>
+            <div class="pointer">
+            		<div id="cover"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+	<script type="text/javascript">
+		//获取元素
+		var prizeDiv = document.getElementsByClassName("prize")[0];
+		var pointerDiv = document.getElementsByClassName("pointer")[0];
+		var coverDiv = document.getElementById("cover");
+		
+		var counter = 0;
+		var bool = false;
+		
+		coverDiv.onclick = function(){
+			counter++;
+			if (bool) {
+					return;
+				};
+			var rotT = parseInt(Math.random() * 1801 + 1800);			
+//			var bang = counter + 2;
+			console.log(counter);				
+			var timer = setInterval(function(){
+				
+//				if (bang > counter) {
+//				coverDiv.onclick = null;
+//			};
+				
+				pointerDiv.style.transform = "rotate("+rotT+"deg)";
+				pointerDiv.style.transition = "all 3s ease-out";	
+			},10);
+			var angle = rotT % 360;
+			setTimeout(function(){
+				clearInterval(timer);				
+//				bool = true;		
+				alert(angle);
+				if ((0 <= angle) && (angle < 18)) {
+					alert("获得30M免费流量包");
+				}else if((18 <= angle) && (angle < 54)){
+					alert("获得100M免费流量包");
+				}else if((54 <= angle) && (angle < 90)){
+					alert("获得2闪币");
+				}else if((90 <= angle) && (angle < 126)){
+					alert("获得50M免费流量包");
+				}else if((126 <= angle) && (angle < 162)){
+					alert("获得10闪币");
+				}else if((162 <= angle) && (angle < 198)){
+					alert("谢谢参与");
+				}else if((198 <= angle) && (angle < 234)){
+					alert("获得5闪币");
+				}else if((234 <= angle) && (angle < 270)){
+					alert("获得10M免费流量包");
+				}else if((270 <= angle) && (angle < 306)){
+					alert("获得20M免费流量包");
+				}else if((306 <= angle) && (angle < 342)){
+					alert("获得20闪币");
+				}else if((342 <= angle) && (angle < 360)){
+					alert("获得30M免费流量包");
+				};
+//				bang = counter + 2;
+//				console.log(bang);
+				console.log(counter);
+				rotT = 0;
+				pointerDiv.style.transform = "rotate("+rotT+"deg)";
+				pointerDiv.style.transition = "all 0.1s linear";
+				function end(){
+				bool = false;
+			};
+			},3000);
+			
+		};
+		
+		
+		
+		
+	</script>
+</html>

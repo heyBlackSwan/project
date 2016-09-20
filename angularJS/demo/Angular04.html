@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="text">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-controller="ctr">
+		<!--<div>
+			{{aa + 50 - 20}}
+		</div>
+		<div>
+			{{hello()}}	
+		</div>-->
+		
+		
+		<!--第二种方式 ngBind-->
+		<div ng-bind="aa"></div>
+	</body>
+	<script type="text/javascript" src="../shop/js/angular.min.js"></script>
+	<script type="text/javascript">
+		//数据绑定（双向）
+		var app = angular.module("test",[]);
+		app.controller("ctr",function($scope){
+			$scope.aa = 100;
+		//绑定数据有三种方式：
+		/*
+		 * 1、{{}} 最常用的
+		 * 2、ngBind
+		 * 3、ngModel 主要用在 input 标签
+		 */
+			$scope.hello = function(){
+				alert("123456");
+			}
+		});
+	</script>
+</html>

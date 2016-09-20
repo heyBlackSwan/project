@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		(function($){
+			$.fn.slide = function(config){
+				var defaults = {
+				//默认配置参数
+				isAuto: false,//是否轮播
+				hasNext: false,//是否有下一个按钮
+				hasPrev: false,//是否有上一个按钮
+				activeIndex: 0,//当前展示图片索引，默认0
+				speed: 300,//动画速度
+				time:3000//时间间隔	
+			};
+				var config = $.extend(defaults,config);
+//				console.log(config);
+				var that = $(this);
+				var oWidth = that.width();
+				var activeIndex = config.activeIndex;
+				var picBox = that.find(".focus_bd");
+				var btnBox;
+				var picLists;
+				var btnLists;
+				var timer;
+				
+				//添加按钮节点
+				var render = function(){
+					btnBox = that.find(".focus_btn");
+					var len = picBox.find("li").length;
+					
+					var tpl = ""
+					for (var i = 0;i < len;i++) {
+						tpl += "<li>" + i+1 + "</li>";
+						
+					}
+					btnBox.html(tpl);
+					btnLists = that.find(".focus_btn>li");
+					btnLists.eq(activeIndex).addClass("on");//给当前出点添加类名
+					var _width = oWidth * len;
+					picBox.width(_width);
+					picLists = picBox.find("li");
+					picLists.width(oWidth);
+					
+					if (!picBox.find("li") || picBox.find("li").length < 2) {
+						return;					
+					};
+					
+					//判断上一页按钮
+					if (config.hasPrev) {
+						that.append("<a href='javascript:;' class='btn_prev'>&lt;</a>");		
+					}
+					
+					//判断下一页按钮
+					if (config.hasNext) {
+						that.append("<a href='javascript:;' class='btn_prev'>&lt;</a>");	
+					}
+					
+					//滑动函数
+					var move = function(index){
+						
+					}
+					
+					//自动播放
+					function atarMove(){
+						if (activeIndex >= picLists.length - 1) {
+							activeIndex = 0;
+						}else{
+							activeIndex ++;
+						}
+						move(activeIndex);
+					};
+					
+				}
+			};
+		})(jQuery)
+	</script>
+</html>
